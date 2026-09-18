@@ -1,0 +1,100 @@
+
+```lua
+-- Initialize the mod menu
+local modMenu = {}
+
+-- Function to teleport to base
+function modMenu.teleportToBase()
+    local basePosition = Vector3.new(0, 0, 0) -- Replace with your base's coordinates
+    local character = game.Players.LocalPlayer.Character
+    if character then
+        character:SetPrimaryPartCFrame(CFrame.new(basePosition))
+    end
+end
+
+-- Function to instantly steal
+function modMenu.instantSteal()
+    -- Replace with the specific logic for stealing in your game
+    -- Example: Find a nearby item and pick it up instantly
+    local item = workspace:FindFirstChildOfClass("Item") -- Replace with the actual class/name
+    if item then
+        game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):EquipTool(item)
+    end
+end
+
+-- Function to enable aimbot
+function modMenu.enableAimbot()
+    -- Replace with the specific logic for aimbot in your game
+    -- Example: Find the nearest enemy and aim at them
+    local enemy = workspace:FindFirstChildOfClass("Enemy") -- Replace with the actual class/name
+    if enemy then
+        local character = game.Players.LocalPlayer.Character
+        if character then
+            local humanoid = character:FindFirstChildOfClass("Humanoid")
+            if humanoid then
+                humanoid:EquipTool(game.Players.LocalPlayer:FindFirstChildOfClass("Tool"))
+                humanoid:Target(enemy)
+            end
+        end
+    end
+end
+
+-- Function to auto-destroy turrets
+function modMenu.autoDestroyTurrets()
+    -- Replace with the specific logic for destroying turrets in your game
+    -- Example: Find all turrets and destroy them
+    for _, turret in ipairs(workspace:GetChildren()) do
+        if turret:IsA("Turret") then -- Replace with the actual class/name
+            turret:Destroy()
+        end
+    end
+end
+
+-- Create UI for the mod menu
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "ModMenu"
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+local Frame = Instance.new("Frame")
+Frame.Name = "ModMenuFrame"
+Frame.Size = UDim2.new(0, 200, 0, 300)
+Frame.Position = UDim2.new(0.5, -100, 0.5, -150)
+Frame.Parent = ScreenGui
+
+local TeleportButton = Instance.new("TextButton")
+TeleportButton.Name = "TeleportButton"
+TeleportButton.Text = "Teleport to Base"
+TeleportButton.Size = UDim2.new(0, 200, 0, 50)
+TeleportButton.Position = UDim2.new(0, 0, 0, 0)
+TeleportButton.Parent = Frame
+TeleportButton.MouseButton1Click:Connect(modMenu.teleportToBase)
+
+local StealButton = Instance.new("TextButton")
+StealButton.Name = "StealButton"
+StealButton.Text = "Instant Steal"
+StealButton.Size = UDim2.new(0, 200, 0, 50)
+StealButton.Position = UDim2.new(0, 0, 0, 50)
+StealButton.Parent = Frame
+StealButton.MouseButton1Click:Connect(modMenu.instantSteal)
+
+local AimbotButton = Instance.new("TextButton")
+AimbotButton.Name = "AimbotButton"
+AimbotButton.Text = "Enable Aimbot"
+AimbotButton.Size = UDim2.new(0, 200, 0, 50)
+AimbotButton.Position = UDim2.new(0, 0, 0, 100)
+AimbotButton.Parent = Frame
+AimbotButton.MouseButton1Click:Connect(modMenu.enableAimbot)
+
+local TurretButton = Instance.new("TextButton")
+TurretButton.Name = "TurretButton"
+TurretButton.Text = "Auto Destroy Turrets"
+TurretButton.Size = UDim2.new(0, 200, 0, 50)
+TurretButton.Position = UDim2.new(0, 0, 0, 150)
+TurretButton.Parent = Frame
+TurretButton.MouseButton1Click:Connect(modMenu.autoDestroyTurrets)
+```
+
+### Instructions for Delta Executor:
+1. **Open Delta Executor**: Launch the Delta Executor and connect to your game.
+2. **Create a New Script**: Create a new Lua script in Delta Executor.
+3. **Paste the Code**: Copy and paste the provided Lua code
