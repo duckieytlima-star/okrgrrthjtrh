@@ -1,0 +1,568 @@
+local Players = game:GetService("Players")
+local UIS = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local TweenService = game:GetService("TweenService")
+
+local LP = Players.LocalPlayer
+local PG = LP:WaitForChild("PlayerGui")
+local Camera = workspace.CurrentCamera
+
+local KEY = "1243"
+
+local Loader = Instance.new("ScreenGui")
+Loader.Name = "MM2Loader"
+Loader.IgnoreGuiInset = true
+Loader.ResetOnSpawn = false
+Loader.Parent = PG
+
+local BG = Instance.new("Frame")
+BG.Size = UDim2.fromScale(1,1)
+BG.BackgroundColor3 = Color3.fromRGB(8,8,13)
+BG.BorderSizePixel = 0
+BG.Parent = Loader
+
+local Hello = Instance.new("TextLabel")
+Hello.Size = UDim2.new(1,0,0,60)
+Hello.Position = UDim2.new(0,0,.37,0)
+Hello.BackgroundTransparency = 1
+Hello.Text = "hello user!"
+Hello.TextColor3 = Color3.new(1,1,1)
+Hello.TextSize = 36
+Hello.Font = Enum.Font.GothamBold
+Hello.Parent = BG
+
+local Loading = Instance.new("TextLabel")
+Loading.Size = UDim2.new(1,0,0,30)
+Loading.Position = UDim2.new(0,0,.47,0)
+Loading.BackgroundTransparency = 1
+Loading.Text = "Loading..."
+Loading.TextColor3 = Color3.fromRGB(150,150,165)
+Loading.TextSize = 15
+Loading.Font = Enum.Font.Gotham
+Loading.Parent = BG
+
+local BarBG = Instance.new("Frame")
+BarBG.Size = UDim2.fromOffset(260,5)
+BarBG.Position = UDim2.new(.5,-130,.55,0)
+BarBG.BackgroundColor3 = Color3.fromRGB(35,35,45)
+BarBG.BorderSizePixel = 0
+BarBG.Parent = BG
+
+Instance.new("UICorner",BarBG).CornerRadius = UDim.new(1,0)
+
+local Bar = Instance.new("Frame")
+Bar.Size = UDim2.new(0,0,1,0)
+Bar.BackgroundColor3 = Color3.fromRGB(75,125,255)
+Bar.BorderSizePixel = 0
+Bar.Parent = BarBG
+
+Instance.new("UICorner",Bar).CornerRadius = UDim.new(1,0)
+
+TweenService:Create(
+	Bar,
+	TweenInfo.new(1.8,Enum.EasingStyle.Quart,Enum.EasingDirection.Out),
+	{Size=UDim2.fromScale(1,1)}
+):Play()
+
+task.wait(2)
+
+Hello.Text = "Welcome"
+Loading.Text = "Enter your key"
+
+task.wait(.5)
+
+BG:Destroy()
+
+local KeyFrame = Instance.new("Frame")
+KeyFrame.Size = UDim2.fromOffset(360,235)
+KeyFrame.Position = UDim2.new(.5,-180,.5,-117)
+KeyFrame.BackgroundColor3 = Color3.fromRGB(19,19,27)
+KeyFrame.BorderSizePixel = 0
+KeyFrame.Parent = Loader
+
+Instance.new("UICorner",KeyFrame).CornerRadius = UDim.new(0,16)
+
+local Stroke = Instance.new("UIStroke")
+Stroke.Color = Color3.fromRGB(65,65,85)
+Stroke.Thickness = 1.5
+Stroke.Parent = KeyFrame
+
+local KeyTitle = Instance.new("TextLabel")
+KeyTitle.Size = UDim2.new(1,-30,0,40)
+KeyTitle.Position = UDim2.fromOffset(15,15)
+KeyTitle.BackgroundTransparency = 1
+KeyTitle.Text = "MM2 TOOLS"
+KeyTitle.TextColor3 = Color3.new(1,1,1)
+KeyTitle.TextSize = 24
+KeyTitle.Font = Enum.Font.GothamBold
+KeyTitle.TextXAlignment = Enum.TextXAlignment.Left
+KeyTitle.Parent = KeyFrame
+
+local Info = Instance.new("TextLabel")
+Info.Size = UDim2.new(1,-30,0,25)
+Info.Position = UDim2.fromOffset(15,57)
+Info.BackgroundTransparency = 1
+Info.Text = "Enter your access key"
+Info.TextColor3 = Color3.fromRGB(145,145,165)
+Info.TextSize = 13
+Info.Font = Enum.Font.Gotham
+Info.TextXAlignment = Enum.TextXAlignment.Left
+Info.Parent = KeyFrame
+
+local Input = Instance.new("TextBox")
+Input.Size = UDim2.new(1,-30,0,44)
+Input.Position = UDim2.fromOffset(15,90)
+Input.BackgroundColor3 = Color3.fromRGB(29,29,40)
+Input.BorderSizePixel = 0
+Input.PlaceholderText = "Key..."
+Input.Text = ""
+Input.TextColor3 = Color3.new(1,1,1)
+Input.TextSize = 15
+Input.Font = Enum.Font.Gotham
+Input.ClearTextOnFocus = false
+Input.Parent = KeyFrame
+
+Instance.new("UICorner",Input).CornerRadius = UDim.new(0,9)
+
+local Submit = Instance.new("TextButton")
+Submit.Size = UDim2.new(1,-30,0,42)
+Submit.Position = UDim2.fromOffset(15,145)
+Submit.BackgroundColor3 = Color3.fromRGB(70,120,255)
+Submit.BorderSizePixel = 0
+Submit.Text = "Continue"
+Submit.TextColor3 = Color3.new(1,1,1)
+Submit.TextSize = 14
+Submit.Font = Enum.Font.GothamBold
+Submit.Parent = KeyFrame
+
+Instance.new("UICorner",Submit).CornerRadius = UDim.new(0,9)
+
+local Status = Instance.new("TextLabel")
+Status.Size = UDim2.new(1,-30,0,22)
+Status.Position = UDim2.fromOffset(15,193)
+Status.BackgroundTransparency = 1
+Status.Text = ""
+Status.TextSize = 12
+Status.Font = Enum.Font.Gotham
+Status.Parent = KeyFrame
+
+local function CreateTools()
+
+	Loader:Destroy()
+
+	local Settings = {
+		ESP = true,
+		MurdererESP = true,
+		SheriffESP = true,
+		Aimbot = false,
+		Fly = false,
+		Fling = false
+	}
+
+	local Gui = Instance.new("ScreenGui")
+	Gui.Name = "MM2Tools"
+	Gui.ResetOnSpawn = false
+	Gui.Parent = PG
+
+	local Main = Instance.new("Frame")
+	Main.Size = UDim2.fromOffset(320,420)
+	Main.Position = UDim2.new(.5,-160,.5,-210)
+	Main.BackgroundColor3 = Color3.fromRGB(17,17,24)
+	Main.BorderSizePixel = 0
+	Main.Parent = Gui
+
+	Instance.new("UICorner",Main).CornerRadius = UDim.new(0,16)
+
+	local MainStroke = Instance.new("UIStroke")
+	MainStroke.Color = Color3.fromRGB(65,65,85)
+	MainStroke.Thickness = 1.5
+	MainStroke.Parent = Main
+
+	local Title = Instance.new("TextLabel")
+	Title.Size = UDim2.new(1,-60,0,42)
+	Title.Position = UDim2.fromOffset(15,10)
+	Title.BackgroundTransparency = 1
+	Title.Text = "MM2  •  TOOLS"
+	Title.TextColor3 = Color3.new(1,1,1)
+	Title.TextSize = 22
+	Title.Font = Enum.Font.GothamBold
+	Title.TextXAlignment = Enum.TextXAlignment.Left
+	Title.Parent = Main
+
+	local Close = Instance.new("TextButton")
+	Close.Size = UDim2.fromOffset(30,30)
+	Close.Position = UDim2.new(1,-42,0,12)
+	Close.BackgroundColor3 = Color3.fromRGB(42,42,54)
+	Close.Text = "×"
+	Close.TextColor3 = Color3.new(1,1,1)
+	Close.TextSize = 20
+	Close.Font = Enum.Font.GothamBold
+	Close.Parent = Main
+
+	Instance.new("UICorner",Close).CornerRadius = UDim.new(1,0)
+
+	Close.MouseButton1Click:Connect(function()
+		Gui.Enabled = false
+	end)
+
+	local Sub = Instance.new("TextLabel")
+	Sub.Size = UDim2.new(1,-30,0,20)
+	Sub.Position = UDim2.fromOffset(15,48)
+	Sub.BackgroundTransparency = 1
+	Sub.Text = "RightShift to toggle"
+	Sub.TextColor3 = Color3.fromRGB(135,135,155)
+	Sub.TextSize = 11
+	Sub.Font = Enum.Font.Gotham
+	Sub.TextXAlignment = Enum.TextXAlignment.Left
+	Sub.Parent = Main
+
+	local Holder = Instance.new("Frame")
+	Holder.Size = UDim2.new(1,-30,1,-82)
+	Holder.Position = UDim2.fromOffset(15,75)
+	Holder.BackgroundTransparency = 1
+	Holder.Parent = Main
+
+	local Layout = Instance.new("UIListLayout")
+	Layout.Padding = UDim.new(0,7)
+	Layout.Parent = Holder
+
+	local function Toggle(Name,Key)
+
+		local Button = Instance.new("TextButton")
+		Button.Size = UDim2.new(1,0,0,45)
+		Button.BackgroundColor3 = Color3.fromRGB(27,27,37)
+		Button.BorderSizePixel = 0
+		Button.Text = ""
+		Button.AutoButtonColor = false
+		Button.Parent = Holder
+
+		Instance.new("UICorner",Button).CornerRadius = UDim.new(0,9)
+
+		local Label = Instance.new("TextLabel")
+		Label.Size = UDim2.new(1,-75,1,0)
+		Label.Position = UDim2.fromOffset(14,0)
+		Label.BackgroundTransparency = 1
+		Label.Text = Name
+		Label.TextColor3 = Color3.fromRGB(235,235,245)
+		Label.TextSize = 14
+		Label.Font = Enum.Font.GothamMedium
+		Label.TextXAlignment = Enum.TextXAlignment.Left
+		Label.Parent = Button
+
+		local State = Instance.new("TextLabel")
+		State.Size = UDim2.fromOffset(48,28)
+		State.Position = UDim2.new(1,-58,.5,-14)
+		State.BackgroundColor3 = Color3.fromRGB(55,55,68)
+		State.Text = Settings[Key] and "ON" or "OFF"
+		State.TextColor3 = Color3.fromRGB(180,180,190)
+		State.TextSize = 10
+		State.Font = Enum.Font.GothamBold
+		State.Parent = Button
+
+		Instance.new("UICorner",State).CornerRadius = UDim.new(0,7)
+
+		local function Refresh()
+			if Settings[Key] then
+				State.Text = "ON"
+				State.BackgroundColor3 = Color3.fromRGB(70,125,255)
+				State.TextColor3 = Color3.new(1,1,1)
+			else
+				State.Text = "OFF"
+				State.BackgroundColor3 = Color3.fromRGB(55,55,68)
+				State.TextColor3 = Color3.fromRGB(180,180,190)
+			end
+		end
+
+		Button.MouseEnter:Connect(function()
+			Button.BackgroundColor3 = Color3.fromRGB(37,37,49)
+		end)
+
+		Button.MouseLeave:Connect(function()
+			Button.BackgroundColor3 = Color3.fromRGB(27,27,37)
+		end)
+
+		Button.MouseButton1Click:Connect(function()
+			Settings[Key] = not Settings[Key]
+			Refresh()
+		end)
+
+		return Button
+	end
+
+	Toggle("Player ESP","ESP")
+	Toggle("Murderer ESP","MurdererESP")
+	Toggle("Sheriff ESP","SheriffESP")
+	Toggle("Aim Assist","Aimbot")
+	Toggle("Fly","Fly")
+	Toggle("Fling","Fling")
+
+	local dragging = false
+	local dragStart
+	local startPos
+
+	Title.InputBegan:Connect(function(InputObject)
+		if InputObject.UserInputType == Enum.UserInputType.MouseButton1 then
+			dragging = true
+			dragStart = InputObject.Position
+			startPos = Main.Position
+		end
+	end)
+
+	UIS.InputChanged:Connect(function(InputObject)
+		if dragging and InputObject.UserInputType == Enum.UserInputType.MouseMovement then
+			local Delta = InputObject.Position - dragStart
+
+			Main.Position = UDim2.new(
+				startPos.X.Scale,
+				startPos.X.Offset + Delta.X,
+				startPos.Y.Scale,
+				startPos.Y.Offset + Delta.Y
+			)
+		end
+	end)
+
+	UIS.InputEnded:Connect(function(InputObject)
+		if InputObject.UserInputType == Enum.UserInputType.MouseButton1 then
+			dragging = false
+		end
+	end)
+
+	UIS.InputBegan:Connect(function(InputObject,Processed)
+		if Processed then return end
+
+		if InputObject.KeyCode == Enum.KeyCode.RightShift then
+			Gui.Enabled = not Gui.Enabled
+		end
+	end)
+
+	local function GetRole(Player)
+		return Player:GetAttribute("Role")
+	end
+
+	local function AddESP(Player)
+
+		if Player == LP or not Player.Character then
+			return
+		end
+
+		local Old = Player.Character:FindFirstChild("MM2ESP")
+
+		if Old then
+			Old:Destroy()
+		end
+
+		if not Settings.ESP then
+			return
+		end
+
+		local Role = GetRole(Player)
+		local Color = Color3.fromRGB(240,240,240)
+
+		if Role == "Murderer" then
+			if not Settings.MurdererESP then return end
+			Color = Color3.fromRGB(255,60,60)
+
+		elseif Role == "Sheriff" then
+			if not Settings.SheriffESP then return end
+			Color = Color3.fromRGB(60,130,255)
+		end
+
+		local Highlight = Instance.new("Highlight")
+		Highlight.Name = "MM2ESP"
+		Highlight.Adornee = Player.Character
+		Highlight.FillColor = Color
+		Highlight.OutlineColor = Color
+		Highlight.FillTransparency = .65
+		Highlight.OutlineTransparency = 0
+		Highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+		Highlight.Parent = Player.Character
+	end
+
+	local function UpdateESP()
+		for _,Player in ipairs(Players:GetPlayers()) do
+			AddESP(Player)
+		end
+	end
+
+	Players.PlayerAdded:Connect(function(Player)
+		Player.CharacterAdded:Connect(function()
+			task.wait(.5)
+			AddESP(Player)
+		end)
+	end)
+
+	local FlyConnection
+
+	local function StartFly()
+		if FlyConnection then
+			FlyConnection:Disconnect()
+			FlyConnection = nil
+		end
+
+		if not Settings.Fly then
+			return
+		end
+
+		FlyConnection = RunService.RenderStepped:Connect(function()
+			if not Settings.Fly then return end
+
+			local Character = LP.Character
+			local Root = Character and Character:FindFirstChild("HumanoidRootPart")
+
+			if not Root then return end
+
+			local CameraCF = Camera.CFrame
+			local Direction = Vector3.zero
+
+			if UIS:IsKeyDown(Enum.KeyCode.W) then
+				Direction += CameraCF.LookVector
+			end
+
+			if UIS:IsKeyDown(Enum.KeyCode.S) then
+				Direction -= CameraCF.LookVector
+			end
+
+			if UIS:IsKeyDown(Enum.KeyCode.A) then
+				Direction -= CameraCF.RightVector
+			end
+
+			if UIS:IsKeyDown(Enum.KeyCode.D) then
+				Direction += CameraCF.RightVector
+			end
+
+			if UIS:IsKeyDown(Enum.KeyCode.Space) then
+				Direction += Vector3.yAxis
+			end
+
+			if UIS:IsKeyDown(Enum.KeyCode.LeftControl) then
+				Direction -= Vector3.yAxis
+			end
+
+			if Direction.Magnitude > 0 then
+				Root.AssemblyLinearVelocity = Direction.Unit * 55
+			else
+				Root.AssemblyLinearVelocity = Vector3.zero
+			end
+		end)
+	end
+
+	local function GetClosestTarget()
+
+		local Character = LP.Character
+		local Root = Character and Character:FindFirstChild("HumanoidRootPart")
+
+		if not Root then
+			return nil
+		end
+
+		local Closest
+		local Distance = math.huge
+
+		for _,Player in ipairs(Players:GetPlayers()) do
+
+			if Player ~= LP and Player.Character then
+
+				local TargetRoot =
+					Player.Character:FindFirstChild("HumanoidRootPart")
+
+				if TargetRoot then
+
+					local ScreenPos,Visible =
+						Camera:WorldToViewportPoint(TargetRoot.Position)
+
+					if Visible then
+
+						local MousePos = UIS:GetMouseLocation()
+
+						local Dist =
+							(Vector2.new(ScreenPos.X,ScreenPos.Y)-MousePos).Magnitude
+
+						if Dist < Distance then
+							Distance = Dist
+							Closest = TargetRoot
+						end
+					end
+				end
+			end
+		end
+
+		return Closest,Distance
+	end
+
+	RunService.RenderStepped:Connect(function()
+
+		UpdateESP()
+
+		if Settings.Aimbot then
+
+			local Target,Distance = GetClosestTarget()
+
+			if Target and Distance < 250 then
+
+				Camera.CFrame = CFrame.lookAt(
+					Camera.CFrame.Position,
+					Target.Position
+				)
+
+			end
+		end
+
+		if Settings.Fly and not FlyConnection then
+			StartFly()
+		end
+
+		if not Settings.Fly and FlyConnection then
+			FlyConnection:Disconnect()
+			FlyConnection = nil
+		end
+
+	end)
+
+	UpdateESP()
+end
+
+Submit.MouseButton1Click:Connect(function()
+
+	if Input.Text == KEY then
+
+		Status.Text = "Welcome"
+		Status.TextColor3 = Color3.fromRGB(90,255,150)
+
+		task.wait(.7)
+
+		CreateTools()
+
+	else
+
+		Status.Text = "Invalid key"
+		Status.TextColor3 = Color3.fromRGB(255,80,80)
+		Input.Text = ""
+
+	end
+
+end)
+
+Input.FocusLost:Connect(function(EnterPressed)
+
+	if EnterPressed then
+
+		if Input.Text == KEY then
+
+			Status.Text = "Welcome"
+			Status.TextColor3 = Color3.fromRGB(90,255,150)
+
+			task.wait(.7)
+
+			CreateTools()
+
+		else
+
+			Status.Text = "Invalid key"
+			Status.TextColor3 = Color3.fromRGB(255,80,80)
+			Input.Text = ""
+
+		end
+
+	end
+
+end)
